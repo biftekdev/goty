@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+    <info organisation="com.thy" module="IVY"/>
+    <configurations>
+        <conf name="pattern.libs"/>
+    </configurations>
+    <dependencies>
+    
+		<dependency org="com.allen-sauer.gwt.log" name="gwt-log" rev="3.3.2"/>
+	    
+    </dependencies>
+</ivy-module>

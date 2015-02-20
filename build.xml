@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" 
+	name="ANT File Created by M.Abdullah Onuş" default="usage">
+
+	
+	<!-- this property is used in ivy.xml -->
+	<property name="lib.dir" value="lib" />
+	<property name="build.dir" value="build" />
+	<property name="jar.dir" value="${build.dir}" />
+	<property name="src.dir" value="src" />
+	<property name="app.name" value="Goty - GWT wrapper for the noty" />
+	<property name="app.short.name" value="goty" />
+
+	<!-- paths used for compilation and run  -->
+	<path id="project.classpath">
+		<pathelement location="${build.dir}" />
+		<fileset dir="${lib.dir}" />
+	</path>
+
+
+	<!-- ================================= 
+		target: resolve              
+		================================= -->
+	<target name="resolve" description="--> retreive dependencies with ivy">
+		<!-- <ivy:retrieve pattern="${lib.dir}/[artifact]-[type]-[revision].[ext]"/> -->
+		
+		<ivy:retrieve conf="pattern.libs" pattern="${lib.dir}/[artifact]-[type]-[revision].[ext]"/>
+	</target>
+
+	<!-- ================================= 
+		target: report              
+		================================= -->
+	<target name="report" depends="resolve" description="--> generates a report of dependencies">
+		<ivy:report todir="${build.dir}" />
+	</target>
+
+	<!-- ================================= 
+		target: init
+		================================= -->
+	<target name="init" depends="resolve" description="-> initialize some project build properties">
+		<mkdir dir="${build.dir}" />
+		<copy includeemptydirs="false" todir="${build.dir}">
+			<fileset dir="${src.dir}" excludes="**/*.launch, **/*.java" />
+		</copy>
+
+		<property name="version.num" value="1.00-beta" />
+		<buildnumber file="build.num" />
+		<tstamp>
+			<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+		</tstamp>
+
+		<manifestclasspath property="manifest.classpath" jarfile="${jar.dir}/${app.name}.jar">
+			<classpath refid="project.classpath" />
+		</manifestclasspath>
+		<manifest file="${jar.dir}/MANIFEST.MF">
+			<attribute name="Built-By" value="Biftek Technology" />
+			<attribute name="Implementation-Version" value="${version.num}-b${build.number}" />
+			<attribute name="Built-Date" value="${TODAY}" />
+			<!-- <attribute name="Main-Class" value="" />
+			<attribute name="Class-Path" value="${manifest.classpath}"/> -->
+		</manifest>
+	</target>
+
+	<!-- ================================= 
+		target: build-project
+		================================= -->
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" destdir="${build.dir}" includeAntRuntime="false">
+			<src path="${src.dir}" />
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- ================================= 
+		target: clean              
+		================================= -->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<!-- ================================= 
+          target: clean-cache              
+         ================================= -->
+	<target name="clean-cache" description="--> clean the ivy cache">
+		<ivy:cleancache />
+	</target>
+
+	<target name="build-jar" depends="build-project">
+		<jar destfile="${jar.dir}/${app.short.name}-${version.num}.jar" basedir="${build.dir}" includes="**/*.class" manifest="${build.dir}/MANIFEST.MF">
+			<fileset dir="${build.dir}" excludes="MANIFEST.MF"/>
+		</jar>
+	</target>
+
+	<target name="usage">
+		<echo message=""/>
+		<echo message="${app.name} build file"/>
+		<echo message="-----------------------------------"/>
+		<echo message=""/>
+		<echo message="Available targets are:"/>
+		<echo message=""/>
+		<echo message="build-project	--> Build the application"/>
+		<echo message="build-jar		--> Build jar file for the application"/>
+		<echo message="clean			--> Clean build data"/>
+		<echo message="clean-cache		--> Clean Ivy dependency cache"/>
+		<echo message="report			--> Generates a report of dependencies"/>
+		<echo message="resolve			--> Retreive dependencies with ivy"/>
+		<echo message="init				--> Initialize some project build properties"/>
+		<echo message=""/>
+	</target>
+
+</project>
