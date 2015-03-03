@@ -215,7 +215,7 @@ public class GotyProperties extends JavaScriptObject {
 
 	private final native void setNativeSpeed(double speed) /*-{
 		if($wnd.$('#animationDurationStyle').length > 0) {
-			 console.log('found');
+			//console.log('found');
 			//$wnd.alert('remove');
 			//$wnd.$('#animationDurationStyle').remove();
 		}
@@ -467,7 +467,6 @@ public class GotyProperties extends JavaScriptObject {
 	 * @param buttons
 	 */
 	public final void setButtons(NotificationButton[] buttons) {
-		this.initButtons();
 		for (NotificationButton notificationButton : buttons) {
 			this.nativeAddButton(notificationButton);
 		}
@@ -484,13 +483,11 @@ public class GotyProperties extends JavaScriptObject {
 		}
 	}
 
-	private final native void initButtons() 
-	/*-{
-		this.buttons = [];
-	}-*/;
-
 	private final native void nativeAddButton(NotificationButton button)
 	/*-{
+		if(!('buttons' in this) || this.buttons == false) {
+			this.buttons = [];
+		}
 		this.buttons[this.buttons.length] = button;
 	}-*/;
 
@@ -500,9 +497,6 @@ public class GotyProperties extends JavaScriptObject {
 	 * @param button
 	 */
 	public final void addButton(NotificationButton button) {
-		if ((getButtons() + "").equals("false")) {
-			initButtons();
-		}
 		this.nativeAddButton(button);
 	}
 
