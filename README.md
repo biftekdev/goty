@@ -19,5 +19,6 @@ It also has various callbacks for the buttons, opening closing the notifications
 
 ### Documentation
 
-Documentation and examples are here: <http://needim.github.io/noty> . Usage of Goty is almost same as noty.
-The Goty Showcase contains example of all feature of the library. You can check it <a href="https://github.com/biftekdev/gotyshowcase">here</a>
+Eamples are here: <https://github.com/biftekdev/gotyshowcase> . The Goty Showcase contains example of all feature of the library.
+
+Usage of Goty is almost same as noty. You can check noty here: <https://github.com/needim/noty> 
