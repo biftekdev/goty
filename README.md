@@ -1,10 +1,10 @@
 # Goty
 
-Goty is a GWT wrapper for <a href="https://github.com/needim/noty">noty</a> jQuery notification library.
+Goty is a GWT wrapper for <a href="https://github.com/needim/noty" target="_blank">noty</a> jQuery notification library.
 
 ***
 
-## Welcome to GWT world
+## Welcome to <a href="http://www.gwtproject.com" target="_blank">GWT</a> World
 
 **Goty** is a GWT library that makes it easy to create **alert** - **success** - **error** - **warning** - **information** - **confirmation** messages as an alternative the standard alert dialog. Each notification is added to a **queue**. (**Optional**)
 
@@ -21,5 +21,3 @@ It also has various callbacks for the buttons, opening closing the notifications
 
 Documentation and examples are here: <http://needim.github.io/noty> . Usage of Goty is almost same as noty.
 The Goty Showcase contains example of all feature of the library. You can check it <a href="https://github.com/biftekdev/gotyshowcase">here</a>
-
-***
